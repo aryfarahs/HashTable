@@ -1,6 +1,6 @@
-public abstract class HashTable<K, V> {
-    private String[] table;
-    private int size = 50;
+public abstract class HashTable {
+    protected String[] table;
+    protected int size = 50;
 
     // CONSTRUCTOR
     public HashTable() {
@@ -22,9 +22,11 @@ public abstract class HashTable<K, V> {
         this.size = size;
     }
 
+   // METHODS
+
 
     // ABSTRACT METHODS
-    public abstract int funcaoHash(K key);
-
+    public abstract int funcaoHash(int key);
+    public abstract void insert(String value);
 
 }
