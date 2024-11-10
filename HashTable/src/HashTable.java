@@ -1,6 +1,7 @@
 public abstract class HashTable {
     protected Node<String>[] table;
     protected int size;
+    protected int colisions = 0;
 
     public HashTable(int size) {
         this.size = size;
@@ -9,13 +10,15 @@ public abstract class HashTable {
 
     protected abstract int funcaoHash(String key);
 
-    public void insert(String value) {
+    public int insert(String value) {
         int key = funcaoHash(value);
 
         if (table[key] == null) {
             table[key] =  new Node<>(value);
 
         } else {
+            colisions++;
+
             Node<String> current = table[key];
             while (current.getNext() != null) {
                 current = current.getNext();
@@ -24,6 +27,8 @@ public abstract class HashTable {
             current.setNext(newNode);
             current.setPrev(current);
         }
+
+        return colisions;
     }
 
     public boolean search(String value) {
