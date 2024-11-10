@@ -1,12 +1,12 @@
 public class Node<T> {
-    protected T value;
+    private T value;
 
     public Node(T value) {
         this.value = value;
     }
 
     public T getValue() {
-        return this.value;
+        return value;
     }
 
     public void setValue(T value) {

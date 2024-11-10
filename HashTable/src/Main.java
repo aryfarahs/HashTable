@@ -13,8 +13,8 @@ public class Main {
             return;
         }
 
-        HashTable hashTable1 = new HTFunction1();
-        HashTable hashTable2 = new HTFunction2();
+        HashTable hashTable1 = new FuncaoNormal();
+        HashTable hashTable2 = new FuncaoASCII();
 
         HashTablePerformance performance1 = new HashTablePerformance();
         performance1.measureInsertTime(hashTable1, names);
@@ -37,17 +37,17 @@ public class Main {
         System.out.printf("| Colisões         | %-12d | %-12d | %-6s |\n",
                 hashTable1.countCollisions(),
                 hashTable2.countCollisions(),
-                hashTable1.countCollisions() < hashTable2.countCollisions() ? "TH1" :
-                hashTable1.countCollisions() > hashTable2.countCollisions() ? "TH2" : "Empate");
+                hashTable1.countCollisions() < hashTable2.countCollisions() ? "HT1" :
+                hashTable1.countCollisions() > hashTable2.countCollisions() ? "HT2" : "Empate");
         System.out.printf("| Tempo Inserção   | %-12.9f | %-12.9f | %-6s |\n",
                 performance1.getInsertTime(), performance2.getInsertTime(),
-                performance1.getInsertTime() < performance2.getInsertTime() ? "TH1" : "TH2");
+                performance1.getInsertTime() < performance2.getInsertTime() ? "HT1" : "HT2");
         System.out.printf("| Tempo Busca      | %-12.9f | %-12.9f | %-6s |\n",
                 performance1.getSearchTime(), performance2.getSearchTime(),
-                performance1.getSearchTime() < performance2.getSearchTime() ? "TH1" : "TH2");
+                performance1.getSearchTime() < performance2.getSearchTime() ? "HT1" : "HT2");
         System.out.printf("| Tempo Total      | %-12.9f | %-12.9f | %-6s |\n",
                 performance1.getTotalTime(), performance2.getTotalTime(),
-                performance1.getTotalTime() < performance2.getTotalTime() ? "TH1" : "TH2");
+                performance1.getTotalTime() < performance2.getTotalTime() ? "HT1" : "HT2");
         System.out.println("--------------------------------------------------------");
     }
 
