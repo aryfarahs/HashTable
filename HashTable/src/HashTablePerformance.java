@@ -11,7 +11,6 @@ public class HashTablePerformance {
         this.totalTime = 0;
     }
 
-    // Método para medir o tempo de inserção
     public void measureInsertTime(HashTable hashTable, List<String> names) {
         long startInsert = System.nanoTime();
         for (String name : names) {
@@ -21,7 +20,6 @@ public class HashTablePerformance {
         this.insertTime = (endInsert - startInsert) / 1_000_000_000.0;
     }
 
-    // Método para medir o tempo de busca
     public void measureSearchTime(HashTable hashTable, List<String> names) {
         long startSearch = System.nanoTime();
         for (String name : names) {
@@ -32,16 +30,7 @@ public class HashTablePerformance {
         this.totalTime = this.insertTime + this.searchTime;
     }
 
-    // Getters para os tempos
-    public double getInsertTime() {
-        return insertTime;
-    }
-
-    public double getSearchTime() {
-        return searchTime;
-    }
-
-    public double getTotalTime() {
-        return totalTime;
-    }
+    public double getInsertTime() { return insertTime; }
+    public double getSearchTime() { return searchTime; }
+    public double getTotalTime() { return totalTime; }
 }

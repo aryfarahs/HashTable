@@ -1,80 +1,75 @@
-# Implementação de Tabelas Hash com Comparação de Funções Hash
+# Estrutura do Código
 
-Este projeto implementa duas tabelas hash em Java, utilizando duas funções hash distintas, para comparar a eficiência em termos de número de colisões, tempo de inserção e busca, e distribuição das chaves na tabela atendendo os requisitos que a prof Marina pediu para o TDE3 😀
+- **Main.java**: Classe principal que carrega os dados, insere nas tabelas hash, mede o desempenho e exibe o relatório final.
+- **HashTable.java**: Classe abstrata que define a estrutura de uma tabela hash com redimensionamento dinâmico e tratamento de colisões por endereçamento linear.
+- **FuncaoNormal.java**: Implementa uma função hash baseada no comprimento da string.
+- **FuncaoASCII.java**: Implementa uma função hash que calcula a soma dos valores numéricos das letras da string.
+- **HashTablePerformance.java**: Classe que mede o tempo de inserção e busca em cada tabela hash.
+- **Node.java**: Classe auxiliar para representação de nós (não essencial para o projeto, mas incluída para referência).
 
-## Estrutura do Projeto
+## Funcionamento do Código
 
-- **HashTable.java**: Classe abstrata que representa a estrutura básica da tabela hash, com métodos para inserção e busca e do tratamento de colisões.
-- **HTFunction1.java**: Classe que implementa a primeira função hash baseada no método de Multiplicação Secreta.
-- **HTFunction2.java**: Classe que implementa a segunda função hash baseada no método SDBM.
-- **Node.java**: Classe auxiliar para armazenar elementos na tabela.
-- **Main.java**: Classe principal que carrega os dados de entrada, insere e busca nas tabelas, mede o tempo e exibe um relatório comparativo entre as duas funções hash.
+### 1. Main.java
 
-## Explicação dos Componentes
+A classe principal `Main` realiza as seguintes operações:
 
-### Estrutura da Classe `HashTable`
+1. **Carregamento dos Dados**: Lê o arquivo `female_names.txt`, que contém uma lista de 5001 nomes.
+2. **Criação das Tabelas Hash**: Inicializa duas tabelas hash usando as classes `FuncaoNormal` e `FuncaoASCII`.
+3. **Medida de Desempenho**: Utiliza a classe `HashTablePerformance` para medir o tempo de inserção e busca para cada tabela hash.
+4. **Exibição dos Resultados**: Mostra no console o número de colisões, o tempo de inserção e busca, e a distribuição das chaves em cada tabela.
 
-- Classe abstrata, tabela possui 50 posições fixas. Cada posição da tabela é representada como uma lista para gerenciar *colisões por encadeamento*.
-- Temos dois contrutores, um que o valor default é 50 e outro que podemos passar o tamanho da tabela como um parametro para definir.
-- Temos metodos abstratos que serão implementados nas nossas duas tabelas com funções diferentes.
+### 2. HashTable.java
 
-#### Método de Tratamento de Colisões
+A classe `HashTable` é abstrata e define a estrutura de uma tabela hash genérica. Suas principais responsabilidades são:
 
-Usamos **encadeamento** para tratamento de colisões. Permite que quando várias chaves caem na mesma posição, elas sejam armazenadas em uma lista dentro dessa posição.
+- **Tratamento de Colisões**: Utiliza endereçamento linear, ou seja, em caso de colisão, o próximo índice disponível é utilizado.
+- **Redimensionamento Dinâmico**: Quando a tabela atinge 70% de ocupação (fator de carga 0.7), seu tamanho é duplicado e todos os elementos são reinseridos.
+- **Método `insert`**: Insere elementos na tabela, lidando com colisões e redimensionamento.
+- **Método `search`**: Realiza a busca por elementos na tabela.
+- **Função Hash Abstrata**: Define a função hash como abstrata para que cada implementação (`FuncaoNormal` e `FuncaoASCII`) tenha sua própria lógica.
 
-#### Funções Hash
+### 3. FuncaoNormal.java
 
-1. **HTFunction1 (Multiplicative Hash)**:
-   - A primeira função hash utiliza a **Multiplicative Hashing**, uma técnica que aque usa a Proporção Áurea (aproximadamente 0,6180339887) para multiplicar os caracteres da chave (todas as letras do nome) gerando um valor. Depois dividimos esses valor pelo tamanho da tabela, que será a posição final que a chave será armazenada na tabela. 
-   - Exemplo de cálculo:
-     ```java
-     double A = 0.6180339887; //áurea
-     for (char c : value.toCharArray()) {
-         hash += c * A; //valor hash
-     }
-     ```
+Implementa uma função hash simples que calcula o índice com base no comprimento da string:
 
-    - Por que escolhemos essa função? O Multiplicative Hashing é rápido e eficiente, e o uso da Proporção Áurea ajuda a distribuir os valores de forma equilibrada na tabela. Essa função é especialmente útil para chaves curtas, como nomes que foram utilizados no trabalhos.
+```java
+public int hash(String value) {
+    int length = value.length();
+    return length % size;
+}
+```
 
-2. **HTFunction2 (SDBM Hash)**:
-   - A segunda função hash utiliza o método **SDBM**. Ele aplica operações de deslocamento e soma para gerar o índice. la faz uma série de operações de deslocamento de bits e soma/subtração para processar cada caractere da chave. Esse processo de “embaralhamento” dos valores é ótimo para minimizar colisões, principalmente quando as chaves possuem características semelhantes. Envolvem deslocamentos de bits (movendo os bits à esquerda ou à direita) e operações de adição/subtração.
-   - Exemplo de cálculo:
-     ```java
-     for (char c : value.toCharArray()) {
-         hash = c + (hash << 6) + (hash << 16) - hash;
-     }
-     ```
-    - Por que escolhemos essa função? A SDBM Hash é muito utilizada em sistemas e bancos de dados devido à sua capacidade de espalhar valores de maneira confiável, mesmo com chaves que compartilham padrões. 
+- **Explicação**: A função utiliza o comprimento da string (`value.length()`) e calcula o índice com o operador módulo (`%`) em relação ao tamanho da tabela (`size`).
+- **Vantagem**: É rápida e tem uma complexidade de `O(1)` para calcular o índice.
+- **Desvantagem**: Pode gerar muitas colisões se muitas strings tiverem o mesmo comprimento.
 
-##### Explicação: 
-1. Deslocamentos de Bits:
+### 4. FuncaoASCII.java
 
-- hash << 6: Desloca os bits do valor hash 6 posições para a esquerda. Equivalente a multiplicar hash por 64.
-- hash << 16: Desloca os bits do valor hash 16 posições para a esquerda. Equivalente a multiplicar hash por 65.536.
-- Permite que pequenos valores de hash cresçam rapidamente. Cria uma "distância" entre os valores de hash com base nos deslocamentos, que ajuda a espalhar os resultados pela tabela.
+Esta classe implementa uma função hash que calcula o índice somando os valores das letras na string (considerando `a = 1`, `b = 2`, ..., `z = 26`).
 
-2. Soma/Subtração:
+```java
+public int hash(String value) {
+    int sum = 0;
+    for (char c : value.toLowerCase().toCharArray()) {
+        sum += c - 'a' + 1;
+    }
+    return sum % size;
+}
+```
 
-- (hash << 6) + (hash << 16) - hash: Essa combinação cria um "embaralhamento" dos bits de hash. A subtração final evita que o valor de hash cresça linearmente ao longo do loop.
+- **Explicação**: A função percorre cada caractere da string, converte-o para um valor numérico e calcula a soma total. O índice final é o módulo dessa soma em relação ao tamanho da tabela (`size`).
+- **Vantagem**: Pode distribuir as chaves de forma mais uniforme, especialmente se as strings forem variadas.
+- **Desvantagem**: É mais lenta que `FuncaoNormal` para strings longas, pois precisa percorrer cada caractere, o que resulta em uma complexidade `O(n)`.
 
-3. Adição do Caractere Atual (c):
+### 5. HashTablePerformance.java
 
-- O valor do caractere "c" é somado ao resultado das operações anteriores. Isso faz com que cada caractere contribua com uma "parcela" única ao valor de hash, baseada em sua posição e no deslocamento acumulado dos bits.
+A classe `HashTablePerformance` mede o desempenho das tabelas hash, especificamente:
 
-Ambas as funções hash retornam o índice como `hash % size` para garantir que o valor fique dentro dos limites da tabela.
+- `measureInsertTime`: Mede o tempo necessário para inserir todos os elementos em uma tabela hash.
+- `measureSearchTime`: Mede o tempo necessário para realizar a busca de todos os elementos.
+- **Getters**: Fornece acesso ao tempo de inserção, tempo de busca e tempo total.
 
-### Estrutura da Classe `Main`
 
-- Lê um arquivo `female_names.txt` e armazena os nomes em uma lista `List<String>`.
-   
-2. **Inserção e Busca**:
-   - Cada nome é inserido nas duas tabelas hash.
-   - Após a inserção, mede-se o tempo necessário para inserir e buscar cada nome.
-   - Foi alterado para o arquivo `HashTablePerformance.java` as funções de medição para deixar a Main mais clara
-
-3. **Cálculo e Exibição de Tempo**:
-   - O `System.nanoTime()` mede o tempo de inserção e busca de cada tabela.
-   - Deixamos em segundos para facilitar, por mias que nanosegundo faça mais sentido.
 
 ## Como Compilar e Executar (vscode pelo menos)
 
