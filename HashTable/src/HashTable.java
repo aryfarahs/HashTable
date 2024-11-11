@@ -3,9 +3,10 @@ import java.util.Arrays;
 public abstract class HashTable {
     protected String[] table;
     protected int size;
-    protected int elementCount;  
+    protected int elementCount;
+    protected int peso = 2;  
 
-    private static final int INITIAL_SIZE = 20;
+    private static final int INITIAL_SIZE = 10;
     private static final double LOAD_FACTOR = 0.7;
     private int collisionCount;
 
@@ -16,12 +17,12 @@ public abstract class HashTable {
         this.collisionCount = 0; 
     }
 
-    public void insert(String value) {
+    public void insert(String value, int peso) {
         if (loadFactor() >= LOAD_FACTOR) {
             resizeTable();
         }
     
-        int index = Math.abs(hash(value) % size);  
+        int index = Math.abs(hash(value, peso) % size);  
         int originalIndex = index;
 
         if (table[index] != null) {
@@ -37,6 +38,7 @@ public abstract class HashTable {
     
         table[index] = value;
         elementCount++;
+        System.out.println(hash(value, peso));
     }
     
     private double loadFactor() {
@@ -58,10 +60,10 @@ public abstract class HashTable {
         }
     }
 
-    public abstract int hash(String value);
+    public abstract int hash(String value, int peso);
 
     public boolean search(String value) {
-        int index = Math.abs(hash(value) % size);  
+        int index = Math.abs(hash(value, int peso) % size);  
         int originalIndex = index;
     
         while (table[index] != null) {

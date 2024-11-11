@@ -3,9 +3,11 @@ import java.util.List;
 public class FuncaoNormal extends HashTable {
 
     @Override
-    public int hash(String value) {
-        int length = value.length();
-        int aux = length * 31;
-        return aux % size;
+    public int hash(String value, int peso) {
+        int sum = 0;
+        for (char c : value.toLowerCase().toCharArray()) {
+            sum += c - 'a' + 1;  
+        }
+        return ((sum) + peso) % size;
     }
 }
