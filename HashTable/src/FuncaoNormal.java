@@ -3,6 +3,7 @@ public class FuncaoNormal extends HashTable {
     @Override
     public int hash(String value) {
         int length = value.length();
-        return length % size;
+        int aux = length * 31;
+        return aux % size;
     }
 }

@@ -8,11 +8,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Iniciando o programa.");
 
-        List<String> names = loadNames("female_names.txt");
+        List<String> names = loadNames("C:\\Users\\Bárbara\\Desktop\\faculdade\\HashTable\\HashTable\\src\\female_names.txt");
         System.out.println("Nomes carregados: " + names.size());
 
         if (names.isEmpty()) {
-            System.out.println("Nenhum nome foi carregado. Verifique o caminho do arquivo.");
+            System.out.println("Nenhum nome foi carregado. Verifique o caminho do arquivo :( .");
             return;
         }
 
@@ -54,6 +54,7 @@ public class Main {
         System.out.printf("| Tempo Total      | %-12.9f | %-12.9f | %-6s |\n",
                 performance1.getTotalTime(), performance2.getTotalTime(),
                 performance1.getTotalTime() < performance2.getTotalTime() ? "HT1" : "HT2");
+        System.out.println("| Clusters      |  |  |  |\n");
         System.out.println("--------------------------------------------------------");
     }
 
@@ -74,4 +75,5 @@ public class Main {
         }
         return names;
     }
+
 }

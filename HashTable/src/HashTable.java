@@ -19,10 +19,9 @@ public abstract class HashTable {
             resizeTable();
         }
     
-        int index = Math.abs(hash(value) % size);  // garante que o índice seja positivo e dentro dos limites
+        int index = Math.abs(hash(value) % size);  
         int originalIndex = index;
-    
-        // Endereçamento linear
+
         while (table[index] != null) {
             index = (index + 1) % size;
             if (index == originalIndex) {
@@ -47,8 +46,7 @@ public abstract class HashTable {
 
         for (String value : oldTable) {
             if (value != null) {
-                insert(value);  // Re-insere os valores na nova tabela
-            }
+                insert(value);  }
         }
     }
 
