@@ -7,11 +7,13 @@ public abstract class HashTable {
 
     private static final int INITIAL_SIZE = 20;
     private static final double LOAD_FACTOR = 0.7;
+    private int collisionCount;
 
     public HashTable() {
         this.size = INITIAL_SIZE;
         this.table = new String[size];
         this.elementCount = 0;
+        this.collisionCount = 0; 
     }
 
     public void insert(String value) {
@@ -21,6 +23,10 @@ public abstract class HashTable {
     
         int index = Math.abs(hash(value) % size);  
         int originalIndex = index;
+
+        if (table[index] != null) {
+            collisionCount++;
+        }
 
         while (table[index] != null) {
             index = (index + 1) % size;
@@ -43,10 +49,12 @@ public abstract class HashTable {
         table = new String[newSize];
         size = newSize;
         elementCount = 0;
+        collisionCount = 0; 
 
         for (String value : oldTable) {
             if (value != null) {
-                insert(value);  }
+                insert(value);  
+            }
         }
     }
 
@@ -70,18 +78,7 @@ public abstract class HashTable {
     }
     
     public int countCollisions() {
-        int collisions = 0;
-        boolean[] visited = new boolean[size];
-        for (int i = 0; i < size; i++) {
-            if (table[i] != null && !visited[i]) {
-                int index = hash(table[i]);
-                if (index != i) {
-                    collisions++;
-                }
-                visited[i] = true;
-            }
-        }
-        return collisions;
+        return collisionCount;
     }
 
     public void displayDistribution() {

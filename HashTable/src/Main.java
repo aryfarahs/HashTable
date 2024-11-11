@@ -56,6 +56,7 @@ public class Main {
                 performance1.getTotalTime() < performance2.getTotalTime() ? "HT1" : "HT2");
         System.out.println("| Clusters      |  |  |  |\n");
         System.out.println("--------------------------------------------------------");
+        System.out.println(hashTable1.countCollisions());
     }
 
     public static List<String> loadNames(String filePath) {
