@@ -65,8 +65,8 @@ public int hash(String value) {
 
 A classe `HashTablePerformance` mede o desempenho das tabelas hash, especificamente:
 
-- `measureInsertTime`: Mede o tempo necessário para inserir todos os elementos em uma tabela hash.
-- `measureSearchTime`: Mede o tempo necessário para realizar a busca de todos os elementos.
+- `tempoDeInsercao`: Mede o tempo necessário para inserir todos os elementos em uma tabela hash.
+- `tempoDeBusca`: Mede o tempo necessário para realizar a busca de todos os elementos.
 - **Getters**: Fornece acesso ao tempo de inserção, tempo de busca e tempo total.
 
 
