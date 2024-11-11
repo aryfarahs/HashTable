@@ -31,10 +31,10 @@ public class Main {
         System.out.println("| Métrica          | HashTable 1  | HashTable 2  | Melhor |");
         System.out.println("--------------------------------------------------------");
         System.out.printf("| Colisões         | %-12d | %-12d | %-6s |\n",
-                hashTable1.countCollisions(),
-                hashTable2.countCollisions(),
-                hashTable1.countCollisions() < hashTable2.countCollisions() ? "HT1" :
-                hashTable1.countCollisions() > hashTable2.countCollisions() ? "HT2" : "Empate");
+                hashTable1.countColisoes(),
+                hashTable2.countColisoes(),
+                hashTable1.countColisoes() < hashTable2.countColisoes() ? "HT1" :
+                hashTable1.countColisoes() > hashTable2.countColisoes() ? "HT2" : "Empate");
         System.out.printf("| Tempo Inserção   | %-12.9f | %-12.9f | %-6s |\n",
                 performance1.getInsertTime(), performance2.getInsertTime(),
                 performance1.getInsertTime() < performance2.getInsertTime() ? "HT1" : "HT2");

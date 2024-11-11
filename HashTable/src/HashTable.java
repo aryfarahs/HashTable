@@ -16,6 +16,8 @@ public abstract class HashTable {
         this.table = new String[size];
         this.elementCount = 0;
     }
+    
+    public abstract int hash(String value);
 
     public void insert(String value) {
         if (fatorcarga() >= FATOR_CARGA) {
@@ -49,7 +51,6 @@ public abstract class HashTable {
         }
     }
 
-    public abstract int hash(String value);
 
     public boolean search(String value) {
         int index = Math.abs(hash(value) % size);  
@@ -68,7 +69,7 @@ public abstract class HashTable {
         return false;
     }
     
-    public int countCollisions() {
+    public int countColisoes() {
         int collisions = 0;
         boolean[] visited = new boolean[size];
         for (int i = 0; i < size; i++) {
