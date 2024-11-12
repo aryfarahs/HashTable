@@ -5,7 +5,6 @@
 - **FuncaoNormal.java**: Implementa uma função hash baseada no comprimento da string.
 - **FuncaoASCII.java**: Implementa uma função hash que calcula a soma dos valores numéricos das letras da string.
 - **HashTablePerformance.java**: Classe que mede o tempo de inserção e busca em cada tabela hash.
-- **Node.java**: Classe auxiliar para representação de nós (não essencial para o projeto, mas incluída para referência).
 
 ## Funcionamento do Código
 
