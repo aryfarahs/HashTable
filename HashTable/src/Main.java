@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
       
-        List<String> names = loadNames("C:\\Users\\Bárbara\\Desktop\\faculdade\\HashTable\\HashTable\\src\\female_names.txt");
+        List<String> names = loadNames("HashTable\\src\\female_names.txt");
 
         HashTable hashTable1 = new FuncaoNormal();
         HashTable hashTable2 = new FuncaoASCII();
