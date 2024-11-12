@@ -9,8 +9,8 @@ public class Main {
       
         List<String> names = loadNames("HashTable\\src\\female_names.txt");
 
-        HashTable hashTable1 = new FuncaoNormal();
-        HashTable hashTable2 = new FuncaoASCII();
+        HashTable hashTable1 = new Funcao2Mult();
+        HashTable hashTable2 = new Funcao1Soma();
     
 
         HashTablePerformance performance1 = new HashTablePerformance();

@@ -1,4 +1,4 @@
-public class FuncaoASCII extends HashTable {
+public class Funcao1Soma extends HashTable {
 
     @Override
     public int hash(String value) {
