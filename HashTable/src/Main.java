@@ -7,10 +7,11 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
       
-        List<String> names = loadNames("src/female_names.txt");
+        List<String> names = loadNames("C:\\Users\\Bárbara\\Desktop\\faculdade\\HashTable\\HashTable\\src\\female_names.txt");
 
         HashTable hashTable1 = new FuncaoNormal();
         HashTable hashTable2 = new FuncaoASCII();
+    
 
         HashTablePerformance performance1 = new HashTablePerformance();
         performance1.tempoDeInsercao(hashTable1, names);
@@ -45,7 +46,10 @@ public class Main {
                 performance1.getTotalTime(), performance2.getTotalTime(),
                 performance1.getTotalTime() < performance2.getTotalTime() ? "HT1" : "HT2");
         System.out.println("--------------------------------------------------------");
+        System.out.println(("Cada posição contem 1 chave pois usamos o endereçamento linear"));
     }
+
+    
 
     public static List<String> loadNames(String filePath) {
         List<String> names = new ArrayList<>();
