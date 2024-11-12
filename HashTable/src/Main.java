@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
+      
         List<String> names = loadNames("src/female_names.txt");
 
         HashTable hashTable1 = new FuncaoNormal();

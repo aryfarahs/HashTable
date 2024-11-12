@@ -2,10 +2,13 @@ public class FuncaoASCII extends HashTable {
 
     @Override
     public int hash(String value) {
-        int sum = 0;
+        long sum = 0;
+        
         for (char c : value.toLowerCase().toCharArray()) {
-            sum += c - 'a' + 1;  
+            sum = sum * 31 + c;  
         }
-        return sum % size;
+        sum += value.length() * 31;
+        
+        return (int)(sum % size);  
     }
 }
